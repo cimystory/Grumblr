@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}Grumblr-Global Stream{% endblock %}</title>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'grumblr/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'grumblr/css/main.css' %}">
+		<link rel="icon" href="{% static 'grumblr/images/icon.png' %}">
+	</head>
+	<body class="global-body">
+		<div id='content'>
+		{% block content %}{% endblock %}
+		</div>
+		<div id='nav'>
+		{% block nav %}{% endblock %}
+		</div>
+		<div id='forms'>
+		{% block forms %}{% endblock %}
+		</div>
+		{% load static %}
+		<script src="{% static 'grumblr/js/jquery-3.1.1.min.js' %}" type="text/javascript"></script>
+    	<script src="{% static 'grumblr/js/grumblr.js' %}" type="text/javascript"></script>
+	</body>
+</html>
+

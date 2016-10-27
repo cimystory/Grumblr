@@ -1,0 +1,14 @@
+{% extends "grumblr/base.html" %}
+
+{% block title %}Grumblr-Confirmed{% endblock %}
+
+{% block content %}
+		<div class="title">
+			<h1>Grumblr</h1>
+		</div>
+		<p>
+			You successfully confirm your email address. Now you can login to grumblr.
+		</p>
+		<p><a href="{% url 'login' %}">login</a></p>
+{% endblock %}
+

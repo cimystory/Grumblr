@@ -1,0 +1,48 @@
+{% extends "grumblr/grumblrBase.html" %}
+
+{% block title %}Grumblr-Edit profile{% endblock %}
+
+{% load static %}
+
+{% block nav %}
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="{% url 'home' %}"><img src='{% static "grumblr/images/label.png" %}' /></a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'home' %}"><img src='{% static "grumblr/images/home.png" %}' /></a></li>
+					<li><a href="{% url 'profile' user.id %}"><img src='{% static "grumblr/images/user.png" %}' /></a></li>
+					<li class="active"><a href="{% url 'edit' %}"><img src='{% static "grumblr/images/edit.png" %}' /></a></li>
+		            <li><a href="{% url 'following_stream' %}"><img src='{% static "grumblr/images/following.png" %}'/></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'logout' %}"><img src='{% static "grumblr/images/logout.png" %}' /></a></li>
+				</ul>
+			</div>
+		</nav>
+{% endblock %}
+
+{% block forms %}
+		<form enctype="multipart/form-data" method="post" action="{% url 'edit' %}"> 
+			<img class="middle-display" src="{% url 'avatar' user.id %}" />
+			<table align='center'>	
+				<tr></tr>
+                {% for field in form.visible_fields %}
+                <tr>
+                  <td class="edit-td">{{field.label_tag}}</td>
+                  <td class="edit-td">{{field}}</td>
+                  <td style="color: red">{{field.errors}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                	<td></td>
+                	<td> <button class="btn btn-md btn-primary custom" type="submit">save</button></td>
+                <tr>
+		    </table>
+		    {% for field in form.hidden_fields %}
+            {{field}}
+            {% endfor %}
+	    {% csrf_token %}
+		</form>
+{% endblock %}

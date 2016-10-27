@@ -1,0 +1,33 @@
+{% extends "grumblr/base.html" %}
+
+{% block title %}Grumblr-Register{% endblock %}
+
+{% block content %}
+        <div class="title_in_reg">
+            <h1>Grumblr</h1>
+        </div>
+        <div>
+            <p>Share your life, become a legend</p>
+        </div>
+        <div class="container">
+            {% for error in errors %}
+            <h4>{{ error }}</h4>
+            {% endfor %}
+            <form class='signin-form' action="{% url 'register' %}" method="post">
+                <table>
+                {% for field in form.visible_fields %}
+                    <tr>
+                      <td>{{field.label_tag}}</td>
+                      <td>{{field}}</td>
+                      <td style="color: red">{{field.errors}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+                {% for field in form.hidden_fields %}
+                    {{field}}
+                {% endfor %}
+                <button class="btn btn-md btn-primary btn-block" type="submit">Sign up now</button>
+                {% csrf_token %}
+            </form>
+        </div>
+{% endblock %}

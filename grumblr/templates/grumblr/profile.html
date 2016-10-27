@@ -1,0 +1,58 @@
+{% extends "grumblr/grumblrBase.html" %}
+
+{% block title %}Grumblr-Profile{% endblock %}
+
+{% load static %}
+
+{% block nav %}
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="{% url 'home' %}"><img src='{% static "grumblr/images/label.png" %}' /></a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'home' %}"><img src='{% static "grumblr/images/home.png" %}' /></a></li>
+					<li class="active"><a href="{% url 'profile' user.id %}"><img src='{% static "grumblr/images/user.png" %}' /></a></li>
+					<li><a href="{% url 'edit' %}"><img src='{% static "grumblr/images/edit.png" %}' /></a></li>
+		            <li><a href="{% url 'following_stream' %}"><img src='{% static "grumblr/images/following.png" %}'/></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'logout' %}"><img src='{% static "grumblr/images/logout.png" %}' /></a></li>
+				</ul>
+			</div>
+		</nav>
+{% endblock %}
+
+{% block content %}
+		<img class="middle-display" src="{% url 'avatar' profile.owner.id %}"></img>
+		<h3 style="color:rgb(51,102,187)">{{profile.owner}}</h3>
+		<h5 align="middle" style="color:rgb(51,102,187)">({{profile.first_name}} {{profile.last_name}})</h5>
+		<h5 align="middle" style="color:rgb(51,102,187)">age:{{profile.age}}</h5>
+		<h5 align="middle" style="color:rgb(51,102,187)">{{profile.bio}}</h5>
+		<div align="middle">
+		{% if not me %}
+		{% if following %}
+		    <a href="{% url 'remove_following' profile.owner.id %}">unfollow</a>
+		{% else %}
+		    <a href="{% url 'add_following' profile.owner.id %}">follow</a>
+		{% endif %}   
+		{% endif %}
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				{% for blog in blogs %}
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<a href="{% url 'profile' blog.user.id %}"><img src="{% url 'avatar' blog.user.id %}" height="20" width="20" align="left"></img></a>
+							<a href="{% url 'profile' blog.user.id %}"><h2 class="panel-title" style="text-indent: 0.5em;" align="left">{{blog.user}}</h2></a>
+						</div>
+						<div class="panel-body">
+							<h4>{{blog.text}}</h4>
+							<h5 align="right">{{blog.time}}</h5>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+{% endblock %}
+

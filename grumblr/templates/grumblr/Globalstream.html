@@ -1,0 +1,70 @@
+{% extends "grumblr/grumblrBase.html" %}
+
+{% load static %}
+
+{% block nav %}
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="{% url 'home' %}"><img src='{% static "grumblr/images/label.png" %}' /></a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="{% url 'home' %}"><img src='{% static "grumblr/images/home.png" %}' /></a></li>
+					<li><a href="{% url 'profile' user.id %}"><img src='{% static "grumblr/images/user.png" %}' /></a></li>
+					<li><a href="{% url 'edit' %}"><img src='{% static "grumblr/images/edit.png" %}' /></a></li>
+		            <li><a href="{% url 'following_stream' %}"><img src='{% static "grumblr/images/following.png" %}'/></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'logout' %}"><img src='{% static "grumblr/images/logout.png" %}' /></a></li>
+				</ul>
+			</div>
+		</nav>
+{% endblock %}
+
+{% block content %}
+		<div class="post-total">
+			<img src="{% url 'avatar' user.id %}" height="50" width="50" align="left"></img>
+			<form class="post-form" action="{% url 'message_post' %}" method="post">
+			  <textarea type="text" name="text" placeholder="Post your status here" maxlength="42" rows="3" required></textarea><br>
+			  <button class="btn btn-sm btn-primary" type="submit">Post</button>
+			  {% csrf_token %}
+			</form>
+		</div><br>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div id = "new_blog">
+					{% for blog in blogs %}
+						<div class="panel panel-default">
+				      <div class="panel-heading">
+				      	<a href="{% url 'profile' blog.user.id %}"><img src="{% url 'avatar' blog.user.id %}" height="20" width="20" align="left" /></a>
+				        <a href="{% url 'profile' blog.user.id %}"><h2 class="panel-title" style="text-indent: 0.5em;" align="left">{{blog.user}}</h2></a>
+				      </div>
+				      <div class="panel-body">
+				        <h4>{{blog.text}}</h4>
+				        <h5 align="right">{{blog.time}}</h5>
+				      </div>
+				      <div class="panel-footer">
+				      	<form id="{{blog.id}}" class="new_comment" method="post">
+					      	<input type="text" name="comment" id="new_input_comment{{blog.id}}" placeholder="Comment here" required></input><br><br>
+				    			<button class="btn btn-sm btn-primary" type="submit">Comment</button>
+				    			{% csrf_token %}
+				    		</form>	
+			    			<div id="old_comment{{blog.id}}">
+							    {% for comment in comments %}
+							     {% if comment.comment_blog.id == blog.id %}
+							     <hr>
+							     <img src="{% url 'avatar' comment.comment_user.id %}" height="20" width="20" align="left" />
+							     <h4 style="text-indent: 0.5em;" align="left">{{comment.comment_user.username}}</h4>
+							     <h4>{{comment.comment_text}}</h4>
+							     <h5 align="right">{{comment.comment_time}}</h5>
+							     {% endif %}
+							    {% endfor %}
+						    </div>
+				      </div>
+				    </div>
+			    {% endfor %}
+			  </div>
+		  </div>
+		</div>
+{% endblock %}
+ 

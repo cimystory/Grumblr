@@ -1,0 +1,105 @@
+.title{
+	margin-top: 160px;
+}
+
+.title_in_reg{
+	margin-top: 70px;
+}
+
+.main-body{
+	background-image: url("../images/main-background.jpg");
+  	position: relative;
+  	background-repeat:no-repeat;
+  	background-size:100% 100vh;
+}
+
+.global-body{
+	background-color: rgb(249,249,249);
+	padding-top: 90px;
+}
+
+h1{
+	font-size:60px;
+	color:rgb(51,102,187);
+	text-align: center;
+}
+
+h3{
+	text-align: center;
+ }
+
+.loginerror{
+ 	color:red;
+ 	text-align: center;
+ }
+
+
+p{
+	font-size:20px;
+	color:rgb(51,102,187);
+	text-align: center;
+	padding: 0px;
+}
+
+label{
+	font-size: 15px;
+	color:rgb(81,81,81);
+}
+
+.signin-form{
+	max-width:380px;
+	margin:auto;
+}
+
+
+.text-middle{
+	padding-top: 10px;
+	text-align: center;
+}
+
+.signup-form{
+	max-width:300px;
+	margin:auto;
+}
+
+.navbar-default{
+	background-color: rgb(249,249,249);
+}
+
+.post-total{
+	max-width:500px;
+	margin-left:350px;
+}
+
+.post-form{
+	margin-left: 80px;
+}
+
+textarea { 
+	font-size: 18px; 
+	width:400px;
+}
+
+img.middle-display{
+    display: block;
+    margin: auto;
+    height:150px;
+    width:150px;
+}
+
+.blue_font{
+	color:rgb(51,102,187);
+}
+
+.login_blank{
+	padding-bottom: 10px;
+	padding-left: 20px;
+}
+
+.custom{
+	width:180px;
+}
+
+.edit-td{
+	padding-top: 10px;
+}
