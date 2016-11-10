@@ -23,6 +23,9 @@ from mimetypes import guess_type
 from grumblr.models import *
 from grumblr.forms import *
 
+import base64
+
+
 @login_required
 def home(request):
     context = {'blogs':Blog.get_blogs(),'comments':Comment.get_comments()}

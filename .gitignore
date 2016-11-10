@@ -1,35 +1,13 @@
-# Class-specific section #
-
-
-# Java section #
-*.class
-
-# Django section #
-*.log
-*.pot
+# Python compiled files
 *.pyc
-local_settings.py
-*.py[cod]
-migrations
 
-# C extensions
-*.so
+# Editor backup files
+*~
+*.swp
 
-# Installer logs
-pip-log.txt
+# System specific files
+*.DS_Store
 
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
+*.ini
 
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# Mac OS file
-.DS_Store
+*.txt

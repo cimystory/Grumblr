@@ -11,21 +11,24 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import configparser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config = configparser.ConfigParser()
+config.read("/home/ubuntu/grumblr_deploy/config.ini")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g=8*id(6=&441495@z!&vxv32z$!-lciu!-y8d4_ijm6y38&9d'
+SECRET_KEY = config.get('key', 'SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.162.2.42',"ec2-35-162-2-42.us-west-2.compute.amazonaws.com"]
 
 
 # Application definition
@@ -82,11 +85,15 @@ WSGI_APPLICATION = 'webapps.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': config.get('database',"NAME"),                   # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': config.get('database',"USER"),
+        'PASSWORD': config.get('database',"PASSWORD"),
+        'HOST': '',    # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+        'PORT': '',             # Set to empty string for default.
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -126,15 +133,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'grumblr/static/'
+STATIC_ROOT = '/home/ubuntu/grumblr_deploy/grumblr/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = 'grumblr/media/'
+MEDIA_ROOT = '/home/ubuntu/grumblr_deploy/grumblr/media/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-#EMAIL_HOST = 'smtp.andrew.cmu.edu'
-#EMAIL_HOST_USER = 'ANDREWID'
-#EMAIL_HOST_PASSWORD = 'PASSWORD'
-#EMAIL_USE_TLS = True
+EMAIL_HOST = config.get('Email', 'Host')
+EMAIL_PORT = config.get('Email', 'Port')
+EMAIL_HOST_USER = config.get('Email', 'User')
+EMAIL_HOST_PASSWORD = config.get('Email', 'Password')
+EMAIL_USE_SSL = True
